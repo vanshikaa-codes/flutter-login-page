@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      // 🔹 Named Routes
+      //Named Routes
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
