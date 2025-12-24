@@ -12,7 +12,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      //Named Routes
+      //Dark mode
+      theme: ThemeData(
+        brightness: Brightness.light,
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.system,
+
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
@@ -32,10 +42,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  //GlobalKey for validation
   final _formKey = GlobalKey<FormState>();
-
-  //Controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -49,18 +56,26 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: const Text('Login',style: TextStyle(fontWeight:FontWeight.bold),))),
-      backgroundColor: Colors.brown.shade400,
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Login',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              // Email
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email',labelStyle: TextStyle(color: Colors.black87)),
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Email required';
@@ -71,11 +86,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 25),
 
-              // Password
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Password',labelStyle: TextStyle(color: Colors.black87)),
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                ),
                 validator: (value) {
                   if (value == null || value.length < 6) {
                     return 'Password must be 6 characters';
@@ -86,7 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 24),
 
-              // Login Button
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -96,12 +111,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text('Login'),
               ),
 
-              // Go to Register
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
                 },
-                child: const Text('New user? Register',style:TextStyle(color: Colors.black54),),
+                child: const Text('New user? Register'),
               ),
             ],
           ),
@@ -111,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-//Register screen
+//register screen
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -137,8 +151,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: const Text('Register',style: TextStyle(fontWeight: FontWeight.bold),))),
-      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Register',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -188,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.pop(context); // back to login
+                    Navigator.pop(context);
                   }
                 },
                 child: const Text('Register'),
@@ -200,6 +221,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
+
 //Home screen
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -208,24 +230,29 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: const Text('Home',style: TextStyle(fontWeight: FontWeight.bold),)),
-        backgroundColor: Colors.pinkAccent,
+        title: const Center(
+          child: Text(
+            'Home',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/login');
             },
-          )
+          ),
         ],
       ),
-      body:
-      const Center(
+
+      body: const Center(
         child: Text(
           'Welcome to Home Screen 🎉',
-          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
 }
+
